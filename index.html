@@ -1,86 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-br">
+</html>
 <head>
-<meta charset="UTF-8">
-<title>Roleta</title>
-<style>
-body { font-family: Arial; background:#111; color:#fff; text-align:center }
-#wheel { width:300px; height:300px; border-radius:50%; border:8px solid #fff; margin:20px auto; transition:transform 4s cubic-bezier(.17,.67,.32,1.02); }
-#pointer { width:0; height:0; border-left:15px solid transparent; border-right:15px solid transparent; border-bottom:30px solid red; margin:auto; }
-button { padding:10px 20px; font-size:16px }
-</style>
+ <title>Teste</title>
 </head>
 <body>
-
-<h1>Gire a roleta</h1>
-<div id="pointer"></div>
-<div id="wheel"></div>
-<button onclick="spin()">Girar</button>
-<p id="result"></p>
-
-<script>
-const BASEROW_TOKEN = zmk1ktDjpGzPku3BkZ8MatJjkBbZPY5k;
-const ITEMS_TABLE = 809824;
-const SPINS_TABLE = 809838;
-
-let items = [];
-
-async function loadItems(){
-  const res = await fetch(https://api.baserow.io/api/database/rows/table/${ITEMS_TABLE}/?user_field_names=true,{
-    headers:{ "Authorization":"Token "+BASEROW_TOKEN }
-  });
-  const data = await res.json();
-  items = data.results.filter(i => i.ativo);
-}
-
-function drawWheel(){
-  const wheel = document.getElementById("wheel");
-  let gradient = "conic-gradient(";
-  let total = 0;
-
-  items.forEach(i=>{
-    gradient += ${i.cor} ${total}% ${total+i.chance}%,;
-    total += i.chance;
-  });
-
-  wheel.style.background = gradient.slice(0,-1)+")";
-}
-
-function pickItem(){
-  let r = Math.random()*100;
-  let acc = 0;
-  for(let i of items){
-    acc += i.chance;
-    if(r <= acc) return i;
-  }
-}
-
-async function spin(){
-  const prize = pickItem();
-  const deg = 360 * (3 + Math.random());
-  document.getElementById("wheel").style.transform = rotate(${deg}deg);
-
-  setTimeout(async ()=>{
-    document.getElementById("result").innerText = "Você ganhou: "+prize.nome;
-
-    await fetch(https://api.baserow.io/api/database/rows/table/${SPINS_TABLE}/?user_field_names=true,{
-      method:"POST",
-      headers:{
-        "Authorization":"Token "+BASEROW_TOKEN,
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        user: [1],        // ID do usuário
-        item: [prize.id],
-        ip: "0.0.0.0",
-        valido: true
-      })
-    });
-
-  },4000);
-}
-
-loadItems().then(drawWheel);
-</script>
+   <h1>FUNCIONOU</h1>
 </body>
 </html>
