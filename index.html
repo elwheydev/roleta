@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Roleta</title>
+<style>
+body { background:#111; color:#fff; text-align:center; font-family:Arial }
+#wheel {
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  margin:20px auto;
+  background:conic-gradient(
+    #9e9e9e 0% 50%,
+    #2196f3 50% 80%,
+    #9c27b0 80% 95%,
+    #ffc107 95% 100%
+  );
+  transition: transform 4s ease-out;
+}
+#pointer {
+  width:0;
+  height:0;
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  border-bottom:30px solid red;
+  margin:auto;
+}
+button { padding:10px 20px; font-size:16px }
+</style>
+</head>
+<body>
+
+<h1>Roleta</h1>
+<div id="pointer"></div>
+<div id="wheel"></div>
+<button onclick="spin()">Girar</button>
+
+<script>
+function spin(){
+  const deg = 360 * 4 + Math.random() * 360;
+  document.getElementById("wheel").style.transform =
+    rotate(${deg}deg);
+}
+</script>
+
+</body>
+</html>
